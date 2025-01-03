@@ -172,7 +172,7 @@
         }
 
         async function loadArticles() {
-            const articles = [
+            let articles = [
                 'notas3/2024-08-01-wifi%20planta%20de%20arriba.html',
                 'notas3/2024-08-02-he%20soñado%20que-4.html',
                 'notas3/2024-08-04-ogual%20es%20dso.html',
@@ -416,6 +416,13 @@
                 'notas3/2025-01-03-yo%20recuerdo%20que%20me%20ponñía%20pomodoros.html',
             ];
 
+            // Sort articles from most recent to oldest
+            articles.sort((a, b) => {
+                const dateA = new Date(a.split('/')[1].split('-').slice(0, 3).join('-'));
+                const dateB = new Date(b.split('/')[1].split('-').slice(0, 3).join('-'));
+                return dateB - dateA;
+            });
+
             const container = document.getElementById('articles-container');
             const loading = document.getElementById('loading');
             const tagSet = new Set();
@@ -426,19 +433,9 @@
 
             for (const article of articles) {
                 try {
-                    // Decodificar primero para eliminar cualquier codificación previa
-                    const decodedPath = decodeURIComponent(article);
-                    
-                    // Normalizar los caracteres especiales y volver a codificar correctamente
-                    const normalizedPath = decodedPath
-                        .normalize('NFD')
-                        .replace(/[\u0300-\u036f]/g, '')
-                        .replace(/\s+/g, ' ');
-                        
-                    const encodedPath = encodeURIComponent(normalizedPath);
-                    
-                    const response = await fetch(encodedPath);
-                    
+                    // Use the correct path without unnecessary encoding
+                    const response = await fetch(article);
+
                     if (!response.ok) {
                         console.warn(`No se pudo cargar: ${article}`);
                         continue;
@@ -447,8 +444,13 @@
                     const articleHTML = await response.text();
                     const div = document.createElement('article');
 
-                    // Wrap content in a 'content' div
-                    div.innerHTML = `<div class="content">${articleHTML}</div>`;
+                    // Extract date from filename
+                    const filename = article.split('/')[1];
+                    const dateString = filename.split('-').slice(0, 3).join('-');
+                    const formattedDate = new Date(dateString).toLocaleDateString('es-ES');
+
+                    // Wrap content in a 'content' div and include the date
+                    div.innerHTML = `<div class="content"><span class="date">${formattedDate}</span>${articleHTML}</div>`;
 
                     // Extraer etiquetas (se asume que las etiquetas están en un elemento con clase 'tags')
                     const tagElements = div.querySelectorAll('.tags span');
@@ -476,11 +478,11 @@
 
                     container.appendChild(div);
                     loadedCount++;
-                    
+
                     // Update counter and make article visible
                     loading.innerHTML = `Cargando notas... (${loadedCount}/${totalArticles})`;
-                    
-                    // Make article visible with animation
+
+                    // Make article visible con animación
                     setTimeout(() => {
                         div.classList.add('note', 'visible');
                     }, 10);
