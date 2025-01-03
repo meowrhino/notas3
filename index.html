@@ -436,14 +436,14 @@
 
             for (const article of articles) {
                 try {
-                    // Decode the article path for debugging
-                    const decodedArticle = decodeURIComponent(article);
+                    // Encode the article path to handle special characters
+                    const encodedArticle = encodeURI(article);
                     
-                    const response = await fetch(decodedArticle);
+                    const response = await fetch(encodedArticle);
 
                     if (!response.ok) {
-                        console.warn(`No se pudo cargar: ${decodedArticle} - Status: ${response.status}`);
-                        failedArticles.push(decodedArticle);
+                        console.warn(`No se pudo cargar: ${encodedArticle} - Status: ${response.status}`);
+                        failedArticles.push(encodedArticle);
                         continue;
                     }
 
@@ -451,7 +451,7 @@
                     const div = document.createElement('article');
 
                     // Extract date from filename
-                    const filename = decodedArticle.split('/')[1];
+                    const filename = encodedArticle.split('/')[1];
                     const dateString = filename.split('-').slice(0, 3).join('-');
                     const formattedDate = new Date(dateString).toLocaleDateString('es-ES');
 
@@ -494,8 +494,8 @@
                     }, 10);
 
                 } catch (error) {
-                    console.error(`Error al cargar el artículo ${decodeURIComponent(article)}:`, error);
-                    failedArticles.push(decodeURIComponent(article));
+                    console.error(`Error al cargar el artículo ${encodeURI(article)}:`, error);
+                    failedArticles.push(encodeURI(article));
                 }
             }
 
