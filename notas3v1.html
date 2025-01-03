@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="""en"></html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="""UTF-8">
     <title>Notas 3</title>
     <style>
         /* Estilos limpios de notas2 */
@@ -11,18 +11,9 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-image: radial-gradient(#f0e7d8 2px, transparent 2px),
-                              linear-gradient(#f8ecd8 2px, transparent 2px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
             display: flex;
             flex-direction: column;
-            font-family: sans-serif;
         }
-
-        header { display: none; }
 
         p {
             margin-top: 0.3em;
@@ -56,23 +47,17 @@
         /* Estilos mínimos necesarios para la funcionalidad */
         #filters, #tag-filters {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
             margin: 10px;
         }
 
         button {
-            padding: 6px 12px;
-            border: 1px solid #8b7355;
-            background-color: #8b7355;
-            color: white;
+            padding: 5px 10px;
+            border: none;
+            background-color: burlywood;
             cursor: pointer;
-            border-radius: 4px;
-        }
-        button[aria-pressed="true"] {
-            background-color: #fff6e6;
-            color: #8b7355;
         }
 
         button.active {
@@ -129,14 +114,13 @@
     <div id="loading">Cargando notas...</div>
 
     <div id="filters">
-        <!-- Todos activados por defecto -->
-        <button data-filter="all" aria-pressed="true">Todas</button>
-        <button data-filter="small" aria-pressed="true">Pequeñas</button>
-        <button data-filter="medium" aria-pressed="true">Medianas</button>
-        <button data-filter="large" aria-pressed="true">Largas</button>
+        <button data-filter="all" class="active" aria-pressed="true">Todas</button>
+        <button data-filter="small">Pequeñas</button>
+        <button data-filter="medium">Medianas</button>
+        <button data-filter="large">Largas</button>
     </div>
 
-    <!-- Contenedor de filtros de etiquetas -->
+    <!-- Contenedor de filtros de etiquetas (se elimina el cierre extra) -->
     <div id="tag-filters"></div>
 
     <div id="articles-container" style="display: none;"></div>
@@ -494,57 +478,46 @@
 
         loadArticles();
 
-        // Reemplazar los event listeners existentes con la nueva lógica de filtros
+        // Filtros interactivos
         const filters = document.getElementById('filters');
         filters.addEventListener('click', (event) => {
             if (event.target.tagName === 'BUTTON') {
-                const btn = event.target;
-                const isPressed = btn.getAttribute('aria-pressed') === 'true';
-                btn.setAttribute('aria-pressed', isPressed ? 'false' : 'true');
-                const activeFilters = Array.from(filters.querySelectorAll('button[aria-pressed="true"]'))
-                    .map(b => b.getAttribute('data-filter'));
+                document.querySelectorAll('#filters button').forEach(btn => btn.classList.remove('active'));
+        (async () => {
+            await loadArticles();
+        })();
 
-                document.querySelectorAll('.note').forEach(note => {
-                    const classes = ['small','medium','large'];
-                    if (activeFilters.includes('all')) {
-                        note.style.display = classes.some(cls => note.classList.contains(cls) && activeFilters.includes(cls))
-                            ? 'block'
-                            : 'none';
+                const filter = event.target.getAttribute('data-filter');
+                const articles = document.querySelectorAll('.note');
+                articles.forEach(article => {
+                    if (filter === 'all' || article.classList.contains(filter)) {
+                        article.style.display = 'block';
                     } else {
-                        note.style.display = classes.some(cls => note.classList.contains(cls) && activeFilters.includes(cls))
-                            ? 'block'
-                            : 'none';
+                        article.style.display = 'none';
                     }
                 });
             }
         });
 
-        // Nueva función generateTagButtons
-        function generateTagButtons(tagSet) {
-            const tagFiltersContainer = document.getElementById('tag-filters');
-            tagFiltersContainer.innerHTML = '';
-            tagSet.forEach(tag => {
-                const button = document.createElement('button');
-                button.textContent = tag;
-                button.setAttribute('data-tag', tag);
-                button.setAttribute('aria-pressed', 'true');
-                button.onclick = () => applyTagFilter(tag, button);
-                tagFiltersContainer.appendChild(button);
-            });
-        }
+        // Filtros por etiquetas
+        const tagFilters = document.getElementById('tag-filters');
+        tagFilters.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                document.querySelectorAll('#tag-filters button').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
 
-        // Nueva función applyTagFilter
-        function applyTagFilter(tag, btn) {
-            const isPressed = btn.getAttribute('aria-pressed') === 'true';
-            btn.setAttribute('aria-pressed', isPressed ? 'false' : 'true');
-            const activeTags = Array.from(document.querySelectorAll('#tag-filters button[aria-pressed="true"]'))
-                .map(b => b.getAttribute('data-tag'));
-
-            document.querySelectorAll('.note').forEach(article => {
-                const t = Array.from(article.querySelectorAll('.tags span')).map(t => t.textContent.trim());
-                article.style.display = activeTags.some(att => t.includes(att)) ? 'block' : 'none';
-            });
-        }
+                const selectedTag = event.target.getAttribute('data-tag');
+                const articles = document.querySelectorAll('.note');
+                articles.forEach(article => {
+                    const tags = Array.from(article.querySelectorAll('.tags span')).map(tag => tag.textContent.trim());
+                    if (tags.includes(selectedTag)) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
