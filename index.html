@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="""en"></html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="""UTF-8">
     <title>Notas 3</title>
     <style>
         /* Estilos limpios de notas2 */
@@ -114,20 +114,47 @@
     <div id="loading">Cargando notas...</div>
 
     <div id="filters">
-        <button data-filter="all" class="active">Todas</button>
+        <button data-filter="all" class="active" aria-pressed="true">Todas</button>
         <button data-filter="small">Pequeñas</button>
         <button data-filter="medium">Medianas</button>
         <button data-filter="large">Largas</button>
     </div>
 
-    <!-- Nueva sección para filtros de etiquetas -->
+    <!-- Contenedor de filtros de etiquetas (se elimina el cierre extra) -->
     <div id="tag-filters"></div>
-        <!-- Botones de etiquetas se generarán dinámicamente -->
-    </div>
 
     <div id="articles-container" style="display: none;"></div>
 
     <script>
+        // Encapsular generación de botones de etiqueta
+        function generateTagButtons(tagSet) {
+            const tagFiltersContainer = document.getElementById('tag-filters');
+            tagFiltersContainer.innerHTML = '';
+            tagSet.forEach(tag => {
+                const button = document.createElement('button');
+                button.textContent = tag;
+                button.setAttribute('data-tag', tag);
+                button.setAttribute('aria-pressed', 'false');
+                button.onclick = () => applyTagFilter(tag, button);
+                tagFiltersContainer.appendChild(button);
+            });
+        }
+
+        // Permitir seleccionar múltiples etiquetas
+        function applyTagFilter(tag, btn) {
+            const isPressed = btn.getAttribute('aria-pressed') === 'true';
+            btn.setAttribute('aria-pressed', isPressed ? 'false' : 'true');
+            const activeTags = Array.from(document.querySelectorAll('#tag-filters button[aria-pressed="true"]'))
+                .map(b => b.getAttribute('data-tag'));
+
+            document.querySelectorAll('.note').forEach(article => {
+                const tags = Array.from(article.querySelectorAll('.tags span')).map(t => t.textContent.trim());
+                article.style.display = activeTags.some(t => tags.includes(t)) || activeTags.length === 0
+                    ? 'block'
+                    : 'none';
+            });
+        }
+
         async function loadArticles() {
             const articles = [
                 'notas3/2024-08-01-wifi%20planta%20de%20arriba.html',
@@ -386,6 +413,7 @@
                     const response = await fetch(article);
                     if (!response.ok) {
                         console.error(`Error 404: ${article}`);
+                        alert(`No se pudo cargar: ${article}`);
                         continue;
                     }
                     const articleHTML = await response.text();
@@ -431,6 +459,7 @@
 
                 } catch (error) {
                     console.error(`Error al cargar el artículo ${article}:`, error);
+                    alert(`Error al cargar: ${article}`);
                 }
             }
 
@@ -441,14 +470,7 @@
                 }, 2000);
             }
 
-            // Generar botones de etiquetas
-            const tagFiltersContainer = document.getElementById('tag-filters');
-            tagSet.forEach(tag => {
-                const button = document.createElement('button');
-                button.textContent = tag;
-                button.setAttribute('data-tag', tag);
-                tagFiltersContainer.appendChild(button);
-            });
+            generateTagButtons(tagSet);
 
             loading.style.display = 'none';
             container.style.display = 'block';
