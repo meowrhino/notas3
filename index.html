@@ -78,6 +78,31 @@
         .note.large.expanded .content {
             max-height: none;
         }
+
+        #loading {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(222, 184, 135, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        #articles-container {
+            display: block !important;  /* Override inline style */
+        }
+
+        .note {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .note.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -354,6 +379,8 @@
             let loadedCount = 0;
             const totalArticles = articles.length;
 
+            loading.innerHTML = `Cargando notas... (0/${totalArticles})`;
+
             for (const article of articles) {
                 try {
                     const response = await fetch(article);
@@ -393,24 +420,31 @@
 
                     container.appendChild(div);
                     loadedCount++;
+                    
+                    // Update counter and make article visible
                     loading.innerHTML = `Cargando notas... (${loadedCount}/${totalArticles})`;
+                    
+                    // Make article visible with animation
+                    setTimeout(() => {
+                        div.classList.add('note', 'visible');
+                    }, 10);
+
                 } catch (error) {
                     console.error(`Error al cargar el artículo ${article}:`, error);
                 }
+            }
+
+            if (loadedCount === totalArticles) {
+                loading.innerHTML = `¡Cargadas todas las notas! (${loadedCount}/${totalArticles})`;
+                setTimeout(() => {
+                    loading.style.opacity = '0';
+                }, 2000);
             }
 
             // Generar botones de etiquetas
             const tagFiltersContainer = document.getElementById('tag-filters');
             tagSet.forEach(tag => {
                 const button = document.createElement('button');
-                button.textContent = tag;
-                button.setAttribute('data-tag', tag);
-                tagFiltersContainer.appendChild(button);
-            });
-
-            loading.style.display = 'none';
-            container.style.display = 'block';
-        }
                 button.textContent = tag;
                 button.setAttribute('data-tag', tag);
                 tagFiltersContainer.appendChild(button);
