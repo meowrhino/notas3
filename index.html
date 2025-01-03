@@ -426,12 +426,24 @@
 
             for (const article of articles) {
                 try {
-                    const response = await fetch(article);
+                    // Decodificar primero para eliminar cualquier codificación previa
+                    const decodedPath = decodeURIComponent(article);
+                    
+                    // Normalizar los caracteres especiales y volver a codificar correctamente
+                    const normalizedPath = decodedPath
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
+                        .replace(/\s+/g, ' ');
+                        
+                    const encodedPath = encodeURIComponent(normalizedPath);
+                    
+                    const response = await fetch(encodedPath);
+                    
                     if (!response.ok) {
-                        console.error(`Error 404: ${article}`);
-                        alert(`No se pudo cargar: ${article}`);
+                        console.warn(`No se pudo cargar: ${article}`);
                         continue;
                     }
+
                     const articleHTML = await response.text();
                     const div = document.createElement('article');
 
