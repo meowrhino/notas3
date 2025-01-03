@@ -1,112 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"></html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Notas 3</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #loading {
-            text-align: center;
-            padding: 20px;
-            font-size: 1.2em;
-        }
-
-        #filters {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            gap: 10px;
-        }
-
-        #filters button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #filters button.active {
-            background-color: #555;
-            color: white;
-        }
-
-        .note {
-            margin: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .note.small {
-            background-color: #e0f7fa;
-        }
-
-        .note.medium {
-            background-color: #ffecb3;
-            font-size: 0.9em;
-        }
-
-        .note.large {
-            background-color: #ffcdd2;
-        }
-
-        .note.large .content {
-            max-height: 100px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .note.large.expanded .content {
-            max-height: none;
-        }
-
-        .note.large button {
-            display: block;
-            margin: 10px auto 0;
-            padding: 5px 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Estilos para filtros de etiquetas */
-        #tag-filters {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        #tag-filters button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #f0f0f0;
-        }
-
-        #tag-filters button.active {
-            background-color: #555;
-            color: white;
-        }
-
-        /* Estilos heredados de notas2 */
+        /* Estilos limpios de notas2 */
         body {
             display: flex;
             flex-direction: column;
@@ -141,7 +40,40 @@
             opacity: 40%;
         }
 
-        /* Clases originales para .note, .small, .medium, .large ya existentes */
+        /* Estilos mínimos necesarios para la funcionalidad */
+        #filters, #tag-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            background-color: burlywood;
+            cursor: pointer;
+        }
+
+        button.active {
+            background-color: #8b7355;
+            color: white;
+        }
+
+        .note .content {
+            max-height: none;
+        }
+
+        .note.large .content {
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .note.large.expanded .content {
+            max-height: none;
+        }
     </style>
 </head>
 
