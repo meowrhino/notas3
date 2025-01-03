@@ -436,12 +436,14 @@
 
             for (const article of articles) {
                 try {
-                    // Use the correct path without unnecessary encoding
-                    const response = await fetch(article);
+                    // Decode the article path for debugging
+                    const decodedArticle = decodeURIComponent(article);
+                    
+                    const response = await fetch(decodedArticle);
 
                     if (!response.ok) {
-                        console.warn(`No se pudo cargar: ${article}`);
-                        failedArticles.push(article);
+                        console.warn(`No se pudo cargar: ${decodedArticle} - Status: ${response.status}`);
+                        failedArticles.push(decodedArticle);
                         continue;
                     }
 
@@ -449,7 +451,7 @@
                     const div = document.createElement('article');
 
                     // Extract date from filename
-                    const filename = article.split('/')[1];
+                    const filename = decodedArticle.split('/')[1];
                     const dateString = filename.split('-').slice(0, 3).join('-');
                     const formattedDate = new Date(dateString).toLocaleDateString('es-ES');
 
@@ -488,12 +490,12 @@
 
                     // Make article visible con animación
                     setTimeout(() => {
-                        div.classList.add('note', 'visible');
+                        div.classList.add('visible');
                     }, 10);
 
                 } catch (error) {
-                    console.error(`Error al cargar el artículo ${article}:`, error);
-                    failedArticles.push(article);
+                    console.error(`Error al cargar el artículo ${decodeURIComponent(article)}:`, error);
+                    failedArticles.push(decodeURIComponent(article));
                 }
             }
 
@@ -509,7 +511,7 @@
             loading.style.display = 'none';
             container.style.display = 'block';
 
-            // Log failed articles
+            // Log failed articles with detailed information
             if (failedArticles.length > 0) {
                 console.log('Artículos que no se pudieron cargar:', failedArticles);
             }
