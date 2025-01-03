@@ -18,6 +18,12 @@
             text-align: center;
         }
 
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+        }
+
         #filters {
             display: flex;
             justify-content: center;
@@ -102,6 +108,8 @@
         <h1>Notas 3</h1>
     </header>
 
+    <div id="loading">Cargando notas...</div>
+
     <div id="filters">
         <button data-filter="all" class="active">Todas</button>
         <button data-filter="small">Pequeñas</button>
@@ -114,7 +122,7 @@
         <!-- Botones de etiquetas se generarán dinámicamente -->
     </div>
 
-    <div id="articles-container"></div>
+    <div id="articles-container" style="display: none;"></div>
 
     <script>
         async function loadArticles() {
@@ -364,12 +372,16 @@
             ];
 
             const container = document.getElementById('articles-container');
-
+            const loading = document.getElementById('loading');
             const tagSet = new Set();
 
             for (const article of articles) {
                 try {
                     const response = await fetch(article);
+                    if (!response.ok) {
+                        console.error(`Error 404: ${article}`);
+                        continue;
+                    }
                     const articleHTML = await response.text();
                     const div = document.createElement('article');
                     div.innerHTML = articleHTML;
@@ -399,7 +411,7 @@
 
                     container.appendChild(div);
                 } catch (error) {
-                    console.error(`Error loading article ${article}:`, error);
+                    console.error(`Error al cargar el artículo ${article}:`, error);
                 }
             }
 
@@ -411,6 +423,9 @@
                 button.setAttribute('data-tag', tag);
                 tagFilters.appendChild(button);
             });
+
+            loading.style.display = 'none';
+            container.style.display = 'block';
         }
 
         loadArticles();
@@ -445,7 +460,7 @@
                 const articles = document.querySelectorAll('.note');
                 articles.forEach(article => {
                     const tags = Array.from(article.querySelectorAll('.tags span')).map(tag => tag.textContent.trim());
-                    if (selectedTag === 'all' || tags.includes(selectedTag)) {
+                    if (tags.includes(selectedTag)) {
                         article.style.display = 'block';
                     } else {
                         article.style.display = 'none';
