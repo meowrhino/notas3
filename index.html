@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #filters {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        #filters button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #filters button.active {
+            background-color: #555;
+            color: white;
+        }
+
+        .note {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .note.small {
+            background-color: #e0f7fa;
+        }
+
+        .note.medium {
+            background-color: #ffecb3;
+            font-size: 0.9em;
+        }
+
+        .note.large {
+            background-color: #ffcdd2;
+        }
+
+        .note.large .content {
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .note.large button {
+            display: block;
+            margin: 10px auto 0;
+            padding: 5px 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Notas 3</h1>
+    </header>
+
+    <div id="filters">
+        <button data-filter="all" class="active">Todas</button>
+        <button data-filter="small">Pequeñas</button>
+        <button data-filter="medium">Medianas</button>
+        <button data-filter="large">Largas</button>
+    </div>
+
+    <div id="articles-container"></div>
+
+    <script>
+        async function loadArticles() {
+            // Lista de archivos a cargar
+            const articles = [
+                'notas3/2024-08-01-wifi planta de arriba.html',
+                'notas3/2024-08-02-he soñado que-4.html',
+                'notas3/2024-08-04-ogual es dso.html',
+                'notas3/2024-08-07-10 historias sobre perderse en montañas.html',
+                'notas3/2024-08-09-he soñado que-3.html',
+                'notas3/2024-08-11-al introducir tu dedo en la hendidura salía tu cápsula del montón.html',
+                'notas3/2024-08-16-era una torre muy alta.html',
+                'notas3/2024-08-16-me acuerdo del cajón aquel de bolis que guardaba mi padre e n una….html',
+                'notas3/2024-08-17-bailar es que se siente coml dejar a tu cuerpo a la musica mientras….html',
+                'notas3/2024-08-17-bua molaria la historia de la esposa de un dj y se le acaba de morir.html',
+                'notas3/2024-08-17-igual es esobli que quiero hacer.html',
+                'notas3/2024-08-17-me acuerdo de cuandi escuche yelle pornprimera vez.html',
+                'notas3/2024-08-17-me gusta hacer 3 pensamientos antes de irme.html',
+                'notas3/2024-08-17-no hay nada peor.html',
+                'notas3/2024-08-17-pff como cuando en casa de aquel chico de cadiz me puse a cantar ots….html',
+                'notas3/2024-08-17-siempre te veo en la misma app.html',
+                'notas3/2024-08-17-trnia que hacerle llegar la carta diciendo que su tiempo ha llegado….html',
+                'notas3/2024-08-17-una envidia perezosa.html',
+                'notas3/2024-08-17-unvideijuego que es de ponerte delante del dj t cuanto nas adelante….html',
+                'notas3/2024-08-18-hacer una copia de notas.html',
+                'notas3/2024-08-18-supongo que el motivo por el que escribo.html',
+                'notas3/2024-08-21-recuerdo.html',
+                'notas3/2024-08-22-creo que lo que mas me flipa de la saga fate.html',
+                'notas3/2024-08-22-mira un buen plan de vida que hacer ahora es.html',
+                'notas3/2024-08-22-un paper en blanco.html',
+                'notas3/2024-08-23-ademas en si todo en bakemonogatari es super yin y yan no- en plan….html',
+                'notas3/2024-08-23-como lo profano de jacer esto en horario laboral.html',
+                'notas3/2024-08-23-como un nuevo femenino donde haya barba y biceps un poco marcaditos….html',
+                'notas3/2024-08-23-creo que lo divertido de hyouka es lo mucho que te hacen paeticipe….html',
+                'notas3/2024-08-23-cuanto mas pienso ej eso mas saliba gwnero, que significa esto-.html',
+                'notas3/2024-08-23-descansara samantha hudson de ser ella misma-.html',
+                'notas3/2024-08-23-es como con la pasta de dientes.html',
+                'notas3/2024-08-23-es que es algo asi.html',
+                'notas3/2024-08-23-es que es como.html',
+                'notas3/2024-08-23-es quiza eso lo que nos inquiwta tanto del high school en los animes.html',
+                'notas3/2024-08-23-hm como que antes estuve escribiendo.html',
+                'notas3/2024-08-23-la sensacion de pertenencia a algo quensigue mas alla de ti pero wue….html',
+                'notas3/2024-08-23-mola como que ya no tengas que esforzarte ni en pensar que anime quieres….html',
+                'notas3/2024-08-23-mola pprque siento que en este trip mi movil es algoncon lonque houndejando….html',
+                'notas3/2024-08-23-mola un poco pensar que.html',
+                'notas3/2024-08-23-no me extrañaria que en esta version limitada.html',
+                'notas3/2024-08-23-o sea supongo que si es fuerte no-.html',
+                'notas3/2024-08-23-pero supongo que el estar solo y acompañado en algunas de estas partes….html',
+                'notas3/2024-08-23-que fuerte no-.html',
+                'notas3/2024-08-23-que fuerte que incluso las condiciones de vida en canberta esten como….html',
+                'notas3/2024-08-23-sentir como todos los pelitos de mi cuerponse mueven y como queahora….html',
+                'notas3/2024-08-23-si como.html',
+                'notas3/2024-08-23-si todo se piede chic.html',
+                'notas3/2024-08-23-siento que algo muy explorado en el divino femenino es como.html',
+                'notas3/2024-08-23-sup0ongo que es eso.html',
+                'notas3/2024-08-23-supongo que eso es la locura de la mirada.html',
+                'notas3/2024-08-23-supongo que lo que queremos siempre es volver a la marca.html',
+                'notas3/2024-08-23-supongo que lo que todos nos hemos planteado que nos ha apsado alguna….html',
+                'notas3/2024-08-23-supongo que por eso la exploracion y lo de fuera siempre haya siido….html',
+                'notas3/2024-08-23-supongo que si tienes el lujo de planteartelo.html',
+                'notas3/2024-08-23-y como esta sensacion de.html',
+                'notas3/2024-08-23-y es como-1.html',
+                'notas3/2024-08-23-y la cosa de.html',
+                'notas3/2024-08-23-y sabia que tenia que ser ahora.html',
+                'notas3/2024-08-28-hacer un minesweeper en JS.html',
+                'notas3/2024-08-29-claro porque.html',
+                'notas3/2024-08-31-intento de hablar del pasado.html',
+                'notas3/2024-09-02-la cadena de las llaves de casa.html',
+                'notas3/2024-09-02-si eriting app es pra escritos.html',
+                'notas3/2024-09-04--article class=-escrito--.html',
+                'notas3/2024-09-04-moalria que la writing app tuviese algun lugar para poder cargar el….html',
+                'notas3/2024-09-08-Nueva nota.html',
+                'notas3/2024-09-08-creo que tambien la cosa de hacer web a estructuras o a berta.html',
+                'notas3/2024-09-08-no tener descendencia.html',
+                'notas3/2024-09-08-tenemos muchísima química.html',
+                'notas3/2024-09-08-una inyerfaz.html',
+                'notas3/2024-09-08-una viñeta fe comic a chay gpt.html',
+                'notas3/2024-09-12-bua la tienda de ka mexicana.html',
+                'notas3/2024-09-13-hoy he soñado muchas cosas.html',
+                'notas3/2024-09-14-cuando monto en bici puedo parar el tiempo.html',
+                'notas3/2024-09-14-estabamos en un mundo de apenas cientos de miles de habitantes.html',
+                'notas3/2024-09-14-la protesta funciono.html',
+                'notas3/2024-09-15-así es.html',
+                'notas3/2024-09-15-igual el new age está de moda porque es bastante cierto y porque es….html',
+                'notas3/2024-09-15-igual si que stoy llegando a ese punto.html',
+                'notas3/2024-09-15-las cosas que me apunto ene l calendario tienen 3 colores.html',
+                'notas3/2024-09-15-menos mal que soy escritor.html',
+                'notas3/2024-09-15-para eso vine.html',
+                'notas3/2024-09-15-quiero dejar de save for later.html',
+                'notas3/2024-09-15-si es de verdad lo que quiero.html',
+                'notas3/2024-09-15-si pudiera-.html',
+                'notas3/2024-09-15-y si nunca.html',
+                'notas3/2024-09-16-bua ver el documental de tamayo.html',
+                'notas3/2024-09-16-dejé terapia.html',
+                'notas3/2024-09-16-monetizaré.html',
+                'notas3/2024-09-16-yo no sé si cogiste o no del cuello a mi madre.html',
+                'notas3/2024-09-21-igual me hubiera gustado.html',
+                'notas3/2024-09-21-la cosa es hacer explícita la violencia implícita.html',
+                'notas3/2024-09-21-mira yo creo que eso es un buen pe nsamiento.html',
+                'notas3/2024-09-21-que adobe se pueda crackear siempre me da dos cosas.html',
+                'notas3/2024-09-21-santa y satán son anagramas qué fuerte.html',
+                'notas3/2024-09-21-supongo que.html',
+                'notas3/2024-09-22-igual con la ia.html',
+                'notas3/2024-09-22-supongo que al final es eso.html',
+                'notas3/2024-09-23-he soñado.html',
+                'notas3/2024-09-24-lo que mola tambien de los monogataris.html',
+                'notas3/2024-09-25-mola que hanekawa en kizumonogatari.html',
+                'notas3/2024-09-25-y entonces soñarian las IAs-.html',
+                'notas3/2024-09-27-en este mundo no habia coches.html',
+                'notas3/2024-09-28-existe la arqueosociologia---.html',
+                'notas3/2024-09-28-he soñado que.html',
+                'notas3/2024-10-02-hay recursos suficientes.html',
+                'notas3/2024-10-02-pf mlaria much escribir una historia.html',
+                'notas3/2024-10-02-siento que nuestra generación es una generación que desde pequeña….html',
+                'notas3/2024-10-02-y es curioso porque.html',
+                'notas3/2024-10-04-he soñado que-2.html',
+                'notas3/2024-10-06-y yo miraba el sobre con mi dirección en mi casa en mi mesa.html',
+                'notas3/2024-10-08-acabo de soñar.html',
+                'notas3/2024-10-09-sueño.html',
+                'notas3/2024-10-11-ACAB tag on a bus stop sign.html',
+                'notas3/2024-10-11-pagina.html',
+                'notas3/2024-10-19-a mí me pasa que señalo.html',
+                'notas3/2024-10-19-al final no sé.html',
+                'notas3/2024-10-19-es que esto es la vida joder.html',
+                'notas3/2024-10-19-que cada día pienso que si podría parar de tomar antidepresivos y….html',
+                'notas3/2024-10-24-es que te juro.html',
+                'notas3/2024-10-24-no sé.html',
+                'notas3/2024-10-29-y si yo ahora cogiese.html',
+                'notas3/2024-10-30-al final la justicia es éso no-.html',
+                'notas3/2024-10-30-y es que creo que se teme mucho a lo queer porque.html',
+                'notas3/2024-10-31-entonces yo cuando hago humor negro.html',
+                'notas3/2024-10-31-es que mi situación familiar es muy rara.html',
+                'notas3/2024-10-31-es que.html',
+                'notas3/2024-10-31-porque no hay nada más no binario que ir en bicicleta.html',
+                'notas3/2024-11-02-ees que ojhalá, t4e diré, ojalá.html',
+                'notas3/2024-11-02-el otro dia estuve pensando.html',
+                'notas3/2024-11-02-es que igual hace 40 años aún no teníamos el lenguaje.html',
+                'notas3/2024-11-02-es que literal.html',
+                'notas3/2024-11-02-es que lo de valencia es uy fuerte.html',
+                'notas3/2024-11-02-le pregunté a max si cree que manu podría ser político.html',
+                'notas3/2024-11-02-y es que no.html',
+                'notas3/2024-11-02-y la diferencia entre ela página web y el libro.html',
+                'notas3/2024-11-02-y notas 2, como notas, es eso.html',
+                'notas3/2024-11-02-y si el nombre de emergencia climatica.html',
+                'notas3/2024-11-03-aterrador.html',
+                'notas3/2024-11-03-es que al final.html',
+                'notas3/2024-11-03-es que cuadno digo que no he tenido suicidal thoughts.html',
+                'notas3/2024-11-03-supongo que el capitalismo se basa en.html',
+                'notas3/2024-11-03-supongo que me cuesta menos hablar de esto en un escenario donde sé….html',
+                'notas3/2024-11-05-hoy soñe que.html',
+                'notas3/2024-11-05-y él pensaba que había hecho las paces con la muerte- pero lo que….html',
+                'notas3/2024-11-06-me pregunto si me siento tan solo.html',
+                'notas3/2024-11-09-es que en cuerto modo.html',
+                'notas3/2024-11-09-hoy he soñado que.html',
+                'notas3/2024-11-09-perdón por haberme alejado de ti.html',
+                'notas3/2024-11-10-de la misma manera que.html',
+                'notas3/2024-11-10-es que la democracia es una basura es oligarquía y racismo planetario.html',
+                'notas3/2024-11-10-es que literal-1.html',
+                'notas3/2024-11-10-igual el big bang si fue uan explosion.html',
+                'notas3/2024-11-10-me preguntoq ue habria osado si le hubiese dicho que si a mi paftr….html',
+                'notas3/2024-11-10-porque el poder.html',
+                'notas3/2024-11-11-el sepulturero sin nombre vagaba un domingo por la tarde por el  oscuro….html',
+                'notas3/2024-11-12-claro que quiero capitalizar mi nobinariedad.html',
+                'notas3/2024-11-12-el capitalismo nos enseña.html',
+                'notas3/2024-11-12-es como que.html',
+                'notas3/2024-11-12-es que igual las tropes.html',
+                'notas3/2024-11-14-era un día normal, un día más que andaba mirando la acera siguiendo….html',
+                'notas3/2024-11-15-leía las manos.html',
+                'notas3/2024-11-17-cuando aprieto las manis las cosas se hacen pequeñas.html',
+                'notas3/2024-11-17-el zodiaco mola.html',
+                'notas3/2024-11-17-lo gracioso de poner la fecha y el lugar en la nota.html',
+                'notas3/2024-11-17-mis padres.html',
+                'notas3/2024-11-17-quuiero volver a sentirme seguro.html',
+                'notas3/2024-11-17-ser tan divertida es tan político.html',
+                'notas3/2024-11-17-tendre que aparentar ser un hombre para llegar donde quiero llegar….html',
+                'notas3/2024-11-18-y es como.html',
+                'notas3/2024-11-20-por eso es por lo que se centran tanto en hablarnoos de NUESTRA historia….html',
+                'notas3/2024-11-20-quiero atreverme.html',
+                'notas3/2024-11-23-es que también tenemos una concepción de lo que puede o no puede ser….html',
+                'notas3/2024-11-23-ess que ser genz es comerte un yogur caducado de la nevera.html',
+                'notas3/2024-11-23-y si los genz estamos tan basados.html',
+                'notas3/2024-11-24-y si la magia.html',
+                'notas3/2024-11-26-direccion de arte.html',
+                'notas3/2024-11-28-en cierto modo las empresas son como mundos.html',
+                'notas3/2024-11-28-he soñado que-1.html',
+                'notas3/2024-11-28-llevo un tiempo sintiéndome súper desmotivado en general con la vida….html',
+                'notas3/2024-11-29-el capitalismo es una enfermedad.html',
+                'notas3/2024-11-29-es que uf lo recuerdo perfectamente eh.html',
+                'notas3/2024-11-29-las lunas azules.html',
+                'notas3/2024-11-29-lo mágico de little witch academia.html',
+                'notas3/2024-11-29-los seguidos y los seguidores.html',
+                'notas3/2024-11-29-uno de los momentos más bonitos de mi vida siempre será.html',
+                'notas3/2024-11-29-vivimos en la era de la falta de respeto.html',
+                'notas3/2024-11-30-siento que los colores complem,entarios son.html',
+                'notas3/2024-11-30-y ahora mi habitación huele a ti.html',
+                'notas3/2024-12-01-y al quererme como yo bo me quise me completaste.html',
+                'notas3/2024-12-02-psicologa-1.html',
+                'notas3/2024-12-03-es que tambien siento que nunca he hechot rastadas.html',
+                'notas3/2024-12-03-es quee no me entero de nada.html',
+                'notas3/2024-12-03-y lo llevaba intentando unas cuantas horas y no podía.html',
+                'notas3/2024-12-04-creo que echo de menos.html',
+                'notas3/2024-12-04-el pais donde munca caia el sol.html',
+                'notas3/2024-12-05-cómo voy a creer en un estado.html',
+                'notas3/2024-12-05-lo peligroso del retrato popular del perroflauta.html',
+                'notas3/2024-12-06-es que little witch academia es literalmente el capital pero una version….html',
+                'notas3/2024-12-07-ademas que akko tiene las 3 estrellas.html',
+                'notas3/2024-12-07-supongo que el pequeñito consistente y hoinesto.html',
+                'notas3/2024-12-10--los usuarios que reporten 5 o más casos al mes, correctamente reportados….html',
+                'notas3/2024-12-10-una investigación sobre la ddepresión.html',
+                'notas3/2024-12-15-longuay de ines hernand es lo guay de luigi mangione.html',
+                'notas3/2024-12-16-hacer un viaje de LSD.html',
+                'notas3/2024-12-18-es que por ejemplo ahora.html',
+                'notas3/2024-12-18-la lotería es una paja de pobres.html',
+                'notas3/2024-12-18-psicologa.html',
+                'notas3/2024-12-18-y es que la verdad cuando digo que quiero doctorarme en realidad me….html',
+                'notas3/2024-12-18-y que al final lo pienso y digo.html',
+                'notas3/2024-12-18-y si wl trabajo es esto.html',
+                'notas3/2024-12-20-3701A.html',
+                'notas3/2024-12-23-luego no me preguntes.html',
+                'notas3/2024-12-23-y es que al final es eso.html',
+                'notas3/2024-12-27-Reflexión- Salud mental, identidad y la lucha por entenderse (versión….html',
+                'notas3/2024-12-28-ir a hacienda y decir que quieres emitir facturas.html',
+                'notas3/2024-12-28-un videojuego con 6 bancos.html',
+                'notas3/2024-12-29-oye gracias por querer llevarme al aeropuerto, pero pasare la última….html',
+                'notas3/2025-01-01-lo que hagas en tu primer día del año será lo que hagas en todo el….html',
+                'notas3/2025-01-01-un objeto magico solo es magixo si la persona comprende lo que es.html',
+                "notas3/2025-01-02-es 'notas3/2025.html",
+                'notas3/2025-01-02-soñe sue volvia a mayo.html',
+                'notas3/2025-01-03-aa.html',
+                'notas3/2025-01-03-ahora sé que va a suceder.html',
+                'notas3/2025-01-03-creo que algo que me agobiaba muchi en clase de canto.html',
+                'notas3/2025-01-03-cuando la psiquiatra-psicóloga me dijo.html',
+                'notas3/2025-01-03-doctora.html',
+                'notas3/2025-01-03-es que al final cómo voy a querer matarme con tanto miedo.html',
+                'notas3/2025-01-03-es que soy muy listo.html',
+                'notas3/2025-01-03-igual notas 3.html',
+                'notas3/2025-01-03-petición popular.html',
+                'notas3/2025-01-03-porque vivimos en la cultura del olvido.html',
+                'notas3/2025-01-03-también creo que podría ser correcto decir que el haber hecho lsd….html',
+                'notas3/2025-01-03-y a veces escribo un poquito.html',
+                'notas3/2025-01-03-y es que esto me cancelará.html',
+                'notas3/2025-01-03-y es que usar apps como endel me cambia la vida.html',
+                'notas3/2025-01-03-y sobre eso tiene mucho que ver mi perspectiva queer.html',
+                "notas3/2025-01-03-y vender el proyecto de notas a sala d'art jove-.html",
+                'notas3/2025-01-03-y ver si las puedo monetizar.html',
+                'notas3/2025-01-03-yo recuerdo que me ponñía pomodoros.html',
+            ];
+
+            const container = document.getElementById('articles-container');
+
+            for (const article of articles) {
+                try {
+                    const response = await fetch(article);
+                    const articleHTML = await response.text();
+                    const div = document.createElement('article');
+                    div.innerHTML = articleHTML;
+
+                    const contentLength = articleHTML.length;
+                    div.classList.add('note');
+                    if (contentLength <= 1000) {
+                        div.classList.add('small');
+                    } else if (contentLength <= 5000) {
+                        div.classList.add('medium');
+                    } else {
+                        div.classList.add('large');
+                        const toggleButton = document.createElement('button');
+                        toggleButton.textContent = 'Leer más';
+                        toggleButton.onclick = () => {
+                            div.classList.toggle('expanded');
+                            toggleButton.textContent = div.classList.contains('expanded') ? 'Leer menos' : 'Leer más';
+                        };
+                        div.appendChild(toggleButton);
+                    }
+
+                    container.appendChild(div);
+                } catch (error) {
+                    console.error(`Error loading article ${article}:`, error);
+                }
+            }
+        }
+
+        loadArticles();
+
+        // Filtros interactivos
+        const filters = document.getElementById('filters');
+        filters.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                document.querySelectorAll('#filters button').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                const filter = event.target.getAttribute('data-filter');
+                const articles = document.querySelectorAll('.note');
+                articles.forEach(article => {
+                    if (filter === 'all' || article.classList.contains(filter)) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
