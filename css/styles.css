@@ -27,6 +27,8 @@ article {
     border-radius: 8px;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
+    display: block;
+    opacity: 1;
 }
 
 /* Note sizes */
@@ -129,4 +131,26 @@ button[aria-pressed="true"] {
 /* Utils */
 .trans {
     opacity: 0.4;
+}
+
+#loading {
+    text-align: center;
+    padding: 20px;
+    font-family: var(--font-medium);
+}
+
+#articles-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Contador de artículos */
+#articles-container::before {
+    content: attr(data-count) " notas";
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    font-family: var(--font-medium);
+    color: var(--color-button);
 }
