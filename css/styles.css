@@ -137,16 +137,40 @@ span.date {
     margin: 0px;
 }
 
+/* Filters */
 #filters {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
     position: fixed;
-    top: 0px;
-    right: 0px;
-    background-color: rgba(255, 250, 240, 0.9);
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9); /* Igual que .customization-panel */
     padding: 10px;
-    border-radius: 0px 0px 0px 5px;
-    box-shadow: 0 2px 5px var(--shadow-color);
+    border: 1px solid #ddd; /* Igual que .customization-panel */
+    border-radius: 5px 0px 0px 0px; /* Igual que .customization-panel */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Igual que .customization-panel */
     z-index: 1000;
     margin: 0; /* Eliminado margen */
+}
+
+#filters button {
+    display: block;
+    margin: 5px 0;
+    padding: 10px 15px;
+    font-size: 1em;
+    background: var(--accent-color); /* Usar color de acento */
+    border: 1px solid var(--accent-color); /* Usar color de acento */
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#filters button:hover {
+    background-color: #fff6e6; /* Color de fondo al pasar el ratón */
+    color: var(--accent-color); /* Color de texto al pasar el ratón */
 }
 
 button {
@@ -202,18 +226,6 @@ button.active {
 }
 
 .note {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.note.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Ajustes generales para las notas */
-.note {
     font-family: 'Gupter', serif;
     font-size: 1.2em;
     color: #4a4a4a;
@@ -223,6 +235,8 @@ button.active {
     padding: 15px;
     border-radius: 5px;
     margin: 10px;
+    position: relative;
+    max-width: 600px; /* Restaurado max-width */
 }
 
 .note:hover {
@@ -245,6 +259,21 @@ button.active {
     right: 15px;
     font-size: 0.8em;
     color: #666;
+}
+
+/* Fecha y Hora */
+.note .timestamp {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.note .timestamp .date,
+.note .timestamp .time {
+    display: inline;
+    margin-left: 5px;
 }
 
 /* Customization Panel */

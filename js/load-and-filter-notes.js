@@ -61,9 +61,11 @@ async function loadArticles() {
             const div = document.createElement('div');
             div.classList.add('note', 'visible');
             div.innerHTML = `
-                <span class="date">${date}</span>
-                <span class="time">${time}</span>
                 <div class="content">${content}</div>
+                <div class="timestamp">
+                    <span class="date">${date}</span>
+                    <span class="time">${time}</span>
+                </div>
             `;
             container.appendChild(div);
         } catch (error) {
@@ -81,7 +83,7 @@ async function loadArticles() {
     document.getElementById('loading').style.display = 'none';
 }
 
-loadArticles();
+document.addEventListener('DOMContentLoaded', loadArticles);
 
 // Reemplazar los event listeners existentes con la nueva lógica de filtros
 const filters = document.getElementById('filters');
