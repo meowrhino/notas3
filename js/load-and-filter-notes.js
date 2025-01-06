@@ -158,49 +158,23 @@ filters.addEventListener('click', (event) => {
     }
 });
 
-// Nueva función generateTagButtons
-function generateTagButtons(tagSet) {
-    const tagFiltersContainer = document.getElementById('tag-filters');
-    tagFiltersContainer.innerHTML = '';
-    tagSet.forEach(tag => {
-        const button = document.createElement('button');
-        button.textContent = tag;
-        button.setAttribute('data-tag', tag);
-        button.setAttribute('aria-pressed', 'true');
-        button.onclick = () => applyTagFilter(tag, button);
-        tagFiltersContainer.appendChild(button);
-    });
-}
-
-// Nueva función applyTagFilter
-function applyTagFilter(tag, btn) {
-    const isPressed = btn.getAttribute('aria-pressed') === 'true';
-    btn.setAttribute('aria-pressed', isPressed ? 'false' : 'true');
-    const activeTags = Array.from(document.querySelectorAll('#tag-filters button[aria-pressed="true"]'))
-        .map(b => b.getAttribute('data-tag'));
-
-    document.querySelectorAll('.note').forEach(article => {
-        const t = Array.from(article.querySelectorAll('.tags span')).map(t => t.textContent.trim());
-        article.style.display = activeTags.some(att => t.includes(att)) ? 'block' : 'none';
-    });
-}
-
-function setPattern(pattern) {
-    document.body.className = pattern;
-}
-
 // Cambiar el patrón de fondo
 function changePattern(patternClass) {
-    document.body.className = patternClass;
+    const currentMode = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
+    document.body.className = `${patternClass} ${currentMode}`;
 }
 
 // Alternar modo oscuro/claro
 function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    const patternClass = document.body.classList.contains('pattern-circles') ? 'pattern-circles' :
+                         document.body.classList.contains('pattern-lines') ? 'pattern-lines' :
+                         'pattern-grid';
+    document.body.className = `${patternClass} ${isDarkMode ? 'dark-mode' : 'light-mode'}`;
 
     // Cambiar estilos del panel de personalización en modo oscuro
     const panel = document.querySelector('.customization-panel');
-    if (document.body.classList.contains('dark-mode')) {
+    if (isDarkMode) {
         panel.style.background = "rgba(0, 0, 0, 0.8)";
         panel.style.color = "#fff";
         panel.style.borderColor = "#444";
