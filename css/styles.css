@@ -85,10 +85,6 @@ body.dark-mode .customization-panel button:hover {
     background-color: #777;
 }
 
-header {
-    display: block;
-}
-
 p {
     margin-top: 0.3em;
     margin-bottom: 0.3em;

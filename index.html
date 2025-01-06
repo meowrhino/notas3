@@ -10,9 +10,6 @@
 </head>
 
 <body class="pattern-circles dark-mode">
-    <header>
-        <h1>Notas 3</h1>
-    </header>
 
     <div id="loading">Cargando notas...</div>
 
@@ -31,17 +28,13 @@
 
     <!-- Panel de personalización -->
     <div class="customization-panel">
-        <h3>Personalización</h3>
-        <button onclick="changePattern('pattern-circles')">Círculos</button>
-        <button onclick="changePattern('pattern-lines')">Líneas Diagonales</button>
-        <button onclick="changePattern('pattern-grid')">Cuadrícula</button>
-        <button onclick="toggleDarkMode()">Modo Oscuro/Claro</button>
+        <button onclick="changePattern('pattern-circles')">círculos</button>
+        <button onclick="changePattern('pattern-lines')">diagonales</button>
+        <button onclick="changePattern('pattern-grid')">cuadritos</button>
+        <button onclick="toggleDarkMode()">oscuro/claro</button>
     </div>
 
     <div class="notes-container">
-        <div class="note">Nota de ejemplo 1</div>
-        <div class="note">Nota de ejemplo 2</div>
-        <div class="note">Nota de ejemplo 3</div>
     </div>
 
     <script src="js/load-and-filter-notes.js"></script>
