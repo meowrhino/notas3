@@ -7,10 +7,9 @@ function changePattern(patternClass) {
 // Alternar modo oscuro/claro
 function toggleDarkMode() {
     const isDarkMode = document.body.classList.toggle('dark-mode');
-    const patternClass = document.body.classList.contains('pattern-circles') ? 'pattern-circles' :
-                         document.body.classList.contains('pattern-lines') ? 'pattern-lines' :
-                         'pattern-grid';
-    document.body.className = `${patternClass} ${isDarkMode ? 'dark-mode' : 'light-mode'}`;
+    const patterns = ['pattern-circles', 'pattern-lines', 'pattern-grid'];
+    let currentPattern = patterns.find(pattern => document.body.classList.contains(pattern)) || 'pattern-circles';
+    document.body.className = `${currentPattern} ${isDarkMode ? 'dark-mode' : 'light-mode'}`;
 
     // Cambiar estilos del panel de personalización en modo oscuro
     const panel = document.querySelector('.customization-panel');
