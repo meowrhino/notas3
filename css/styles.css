@@ -297,7 +297,7 @@ button.active {
     border-radius: 5px;
     margin: 10px;
     position: relative;
-    max-width: 600px; /* Restaurado max-width */
+    max-width: 800px; /* Restaurado max-width */
 }
 
 .note:hover {
