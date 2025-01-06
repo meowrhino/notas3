@@ -188,3 +188,46 @@ function applyTagFilter(tag, btn) {
 function setPattern(pattern) {
     document.body.className = pattern;
 }
+
+// Cambiar el patrón de fondo
+function changePattern(patternClass) {
+    document.body.className = patternClass;
+}
+
+// Alternar modo oscuro/claro
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+
+    // Cambiar estilos del panel de personalización en modo oscuro
+    const panel = document.querySelector('.customization-panel');
+    if (document.body.classList.contains('dark-mode')) {
+        panel.style.background = "rgba(0, 0, 0, 0.8)";
+        panel.style.color = "#fff";
+        panel.style.borderColor = "#444";
+    } else {
+        panel.style.background = "rgba(255, 255, 255, 0.9)";
+        panel.style.color = "#000";
+        panel.style.borderColor = "#ddd";
+    }
+}
+
+// Añadir evento para guardar notas editadas
+function saveNoteAsText(noteContent) {
+    const blob = new Blob([noteContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'nota.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// Añadir interacción de guardar al hacer doble clic en una nota
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.note').forEach(note => {
+        note.addEventListener('dblclick', () => {
+            const noteContent = note.textContent.trim();
+            saveNoteAsText(noteContent);
+        });
+    });
+});

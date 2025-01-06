@@ -40,6 +40,31 @@ body.pattern-grid {
     background-size: 20px 20px;
 }
 
+body.dark-mode {
+    background-color: #333;
+    color: #f8ecd8;
+}
+
+body.dark-mode .note {
+    background-color: #444;
+    color: #f8ecd8;
+}
+
+body.dark-mode .customization-panel {
+    background-color: #555;
+    border-color: #666;
+}
+
+body.dark-mode .customization-panel button {
+    background-color: #666;
+    border-color: #777;
+    color: #f8ecd8;
+}
+
+body.dark-mode .customization-panel button:hover {
+    background-color: #777;
+}
+
 header {
     display: block;
 }

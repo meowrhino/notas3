@@ -3,11 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Notas 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas con Personalización</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gupter&family=Reddit+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="pattern-circles">
     <header>
         <h1>Notas 3</h1>
     </header>
@@ -29,15 +31,27 @@
 
     <!-- Panel de personalización -->
     <div class="customization-panel">
-        <button onclick="setPattern('pattern-circles')">Círculos</button>
-        <button onclick="setPattern('pattern-lines')">Líneas</button>
-        <button onclick="setPattern('pattern-grid')">Cuadrícula</button>
+        <h3>Personalización</h3>
+        <button onclick="changePattern('pattern-circles')">Círculos</button>
+        <button onclick="changePattern('pattern-lines')">Líneas Diagonales</button>
+        <button onclick="changePattern('pattern-grid')">Cuadrícula</button>
+        <button onclick="toggleDarkMode()">Modo Oscuro/Claro</button>
+    </div>
+
+    <div class="notes-container">
+        <div class="note">Nota de ejemplo 1</div>
+        <div class="note">Nota de ejemplo 2</div>
+        <div class="note">Nota de ejemplo 3</div>
     </div>
 
     <script src="js/load-and-filter-notes.js"></script>
     <script>
-        function setPattern(pattern) {
+        function changePattern(pattern) {
             document.body.className = pattern;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
         }
     </script>
 </body>
