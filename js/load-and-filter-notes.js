@@ -184,3 +184,7 @@ function applyTagFilter(tag, btn) {
         article.style.display = activeTags.some(att => t.includes(att)) ? 'block' : 'none';
     });
 }
+
+function setPattern(pattern) {
+    document.body.className = pattern;
+}

@@ -11,9 +11,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('path/to/elegant-pattern.png'); /* Cambia esto a la ruta de tu patrón */
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     font-family: var(--font-family);
@@ -21,8 +19,29 @@ body {
     color: #333;
 }
 
+/* Opción 1: Patrón de círculos pequeños */
+body.pattern-circles {
+    background-color: #f7f3e9;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+
+/* Opción 2: Líneas diagonales */
+body.pattern-lines {
+    background-color: #f7f3e9;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 15px 15px;
+}
+
+/* Opción 3: Puntos en cuadrícula */
+body.pattern-grid {
+    background-color: #f7f3e9;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+}
+
 header {
-    display: none;
+    display: block;
 }
 
 p {
@@ -146,4 +165,47 @@ button.active {
 .note.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Ajustes generales para las notas */
+.note {
+    font-family: 'Gupter', serif;
+    font-size: 1.2em;
+    color: #4a4a4a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Customization Panel */
+.customization-panel {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.customization-panel button {
+    display: block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    background: #f7f3e9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.customization-panel button:hover {
+    background: #e0dbc8;
 }

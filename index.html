@@ -27,7 +27,19 @@
 
     <div id="articles-container" style="display: none;"></div>
 
+    <!-- Panel de personalización -->
+    <div class="customization-panel">
+        <button onclick="setPattern('pattern-circles')">Círculos</button>
+        <button onclick="setPattern('pattern-lines')">Líneas</button>
+        <button onclick="setPattern('pattern-grid')">Cuadrícula</button>
+    </div>
+
     <script src="js/load-and-filter-notes.js"></script>
+    <script>
+        function setPattern(pattern) {
+            document.body.className = pattern;
+        }
+    </script>
 </body>
 
 </html>
