@@ -78,6 +78,16 @@ span.date {
     margin: 10px;
 }
 
+#filters {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(255, 250, 240, 0.9);
+    padding: 10px;
+    border-radius: 0px 0px 0px 5px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
 button {
     padding: 6px 12px;
     border: 1px solid var(--accent-color);
