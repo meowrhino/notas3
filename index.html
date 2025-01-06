@@ -9,29 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Gupter&family=Reddit+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="pattern-circles">
-    <header>
-        <h1>Notas 3</h1>
-    </header>
+<body class="pattern-circles dark-mode">
 
     <div id="loading">Cargando notas...</div>
 
     <div id="filters">
-        <!-- Todos activados por defecto 
-        <button data-filter="all" aria-pressed="true">Todas</button>-->
-        <button data-filter="small" aria-pressed="true">notas</button>
-        <button data-filter="medium" aria-pressed="true">historietas</button>
-        <button data-filter="large" aria-pressed="true">historias</button>
+        <button data-filter="small" aria-pressed="true">Notas</button>
+        <button data-filter="medium" aria-pressed="false">Historietas</button>
+        <button data-filter="large" aria-pressed="false">Historias</button>
     </div>
-
-    <!-- Contenedor de filtros de etiquetas -->
-    <div id="tag-filters"></div>
 
     <div id="articles-container" style="display: none;"></div>
 
     <!-- Panel de personalización -->
     <div class="customization-panel">
-        <h3>Personalización</h3>
         <button onclick="changePattern('pattern-circles')">Círculos</button>
         <button onclick="changePattern('pattern-lines')">Líneas Diagonales</button>
         <button onclick="changePattern('pattern-grid')">Cuadrícula</button>
@@ -45,15 +36,7 @@
     </div>
 
     <script src="js/load-and-filter-notes.js"></script>
-    <script>
-        function changePattern(pattern) {
-            document.body.className = pattern;
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-    </script>
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>
