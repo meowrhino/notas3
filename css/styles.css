@@ -200,38 +200,39 @@ span.date {
 
 /* Filters */
 #filters {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
+    composes: panel-style;
     position: fixed;
     top: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.9); /* Igual que .customization-panel */
-    padding: 10px;
-    border: 1px solid #ddd; /* Igual que .customization-panel */
-    border-radius: 5px 0px 0px 0px; /* Igual que .customization-panel */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Igual que .customization-panel */
-    z-index: 1000;
-    margin: 0; /* Eliminado margen */
+    border-radius: 0 0 0 5px;
 }
 
 #filters button {
-    display: block;
-    margin: 5px 0;
     padding: 10px 15px;
     font-size: 1em;
-    background: var(--accent-color); /* Usar color de acento */
-    border: 1px solid var(--accent-color); /* Usar color de acento */
+    background: var(--accent-color);
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.2s ease;
+}
+
+#filters button[aria-pressed="true"] {
+    background: var(--note-bg-color-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 #filters button:hover {
     background-color: #fff6e6; /* Color de fondo al pasar el ratón */
     color: var(--accent-color); /* Color de texto al pasar el ratón */
+}
+
+body.dark-mode #filters button[aria-pressed="true"] {
+    background: var(--note-bg-color-dark);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 button {
@@ -287,6 +288,8 @@ button.active {
 }
 
 .note {
+    max-width: 800px;
+    margin: 20px auto; /* Aumentado el espaciado vertical */
     font-family: 'Gupter', serif;
     font-size: 1.2em;
     color: #4a4a4a;
@@ -295,9 +298,7 @@ button.active {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding: 15px;
     border-radius: 5px;
-    margin: 10px;
     position: relative;
-    max-width: 800px; /* Restaurado max-width */
 }
 
 .note:hover {
@@ -329,6 +330,8 @@ button.active {
     right: 15px;
     font-size: 0.8em;
     color: #666;
+    display: flex;
+    gap: 5px;
 }
 
 .note .timestamp .date,
@@ -339,15 +342,11 @@ button.active {
 
 /* Customization Panel */
 .customization-panel {
+    composes: panel-style;
     position: fixed;
-    bottom: 0px; /* Pegado a la esquina */
-    right: 0px;  /* Pegado a la esquina */
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ddd;
-    border-radius: 5px 0px 0px 0px; /* Border radius ajustado */
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    bottom: 0;
+    right: 0;
+    border-radius: 5px 0 0 0;
 }
 
 .customization-panel button {
@@ -355,32 +354,70 @@ button.active {
     margin: 5px 0;
     padding: 10px 15px; /* Aumentado padding para mejor visibilidad */
     font-size: 1em;
-    background: #4a90e2; /* Color más visible */
-    border: 1px solid #357ABD; /* Bordes contrastantes */
+    background: var(--accent-color);
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     color: white; /* Texto legible */
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .customization-panel button:hover {
-    background: #357ABD;
+    background: #fff6e6;
+    color: var(--accent-color);
 }
 
 /* Botones de filtros */
 #filters button {
     padding: 10px 15px; /* Aumentado padding para mejor visibilidad */
     font-size: 1em;
-    background: #4a90e2; /* Color más visible */
-    border: 1px solid #357ABD; /* Bordes contrastantes */
+    background: var(--accent-color);
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     color: white; /* Texto legible */
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 #filters button:hover {
-    background: #357ABD;
+    background: #fff6e6;
+    color: var(--accent-color);
+}
+
+/* Estilos para botones de filtro */
+#filters button {
+    padding: 10px 15px;
+    font-size: 1em;
+    background: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#filters button[aria-pressed="true"] {
+    background: var(--note-bg-color-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Modo oscuro */
+body.dark-mode #filters button[aria-pressed="true"] {
+    background: var(--note-bg-color-dark);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode #filters button {
+    background: #555;
+    border-color: #666;
+    color: #f8ecd8;
+}
+
+body.dark-mode #filters button:hover {
+    background: var(--note-bg-color-dark);
+    color: var(--accent-color);
 }
 
 /* Asegurar que el fondo esté fijo y las notas se desplacen sobre él */
@@ -392,4 +429,32 @@ body {
     position: relative;
     z-index: 1;
     padding: 20px;
+}
+
+/* Estilos comunes para panels */
+.panel-style {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Modo oscuro */
+body.dark-mode #filters,
+body.dark-mode .customization-panel {
+    background: rgba(51, 51, 51, 0.9);
+    border-color: #444;
+}
+
+body.dark-mode #filters button,
+body.dark-mode .customization-panel button {
+    background: #555;
+    border-color: #666;
+    color: #f8ecd8;
+}
+
+body.dark-mode #filters button:hover,
+body.dark-mode .customization-panel button:hover {
+    background: #666;
 }
