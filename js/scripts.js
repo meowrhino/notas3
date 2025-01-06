@@ -44,3 +44,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function assignRandomColors() {
+    const notes = document.querySelectorAll('.note');
+    notes.forEach(note => {
+        const randomColor = `hsl(${Math.random() * 360}, 50%, 75%)`;
+        note.style.backgroundColor = randomColor;
+    });
+}
+
+
+function updateLoadingProgress(loaded, total) {
+    const loadingDiv = document.getElementById('loading');
+    loadingDiv.textContent = `Cargando notas... ${loaded}/${total}`;
+    if (loaded === total) {
+        loadingDiv.style.display = 'none';
+        document.getElementById('articles-container').style.display = 'block';
+    }
+}
+
+function applyTagFilter(tag, button) {
+    const notes = document.querySelectorAll(`.note[data-tag="${tag}"]`);
+    const isActive = button.getAttribute('aria-pressed') === 'true';
+    notes.forEach(note => note.style.display = isActive ? 'none' : 'block');
+    button.setAttribute('aria-pressed', !isActive);
+}

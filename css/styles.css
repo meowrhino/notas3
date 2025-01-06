@@ -19,7 +19,8 @@ body {
     flex-direction: column;
     font-family: var(--font-family);
     font-size: var(--font-size);
-    color: #f8ecd8; /* Texto en modo oscuro por defecto */
+    background-color: var(--bg-color-dark);
+    color: white;
 }
 
 /* Patrones de fondo */
@@ -189,11 +190,12 @@ span.date {
 
 /* Filters */
 #filters {
-    composes: panel-style;
-    position: fixed;
+    composes: panel;
     top: 0;
     right: 0;
     border-radius: 0 0 0 5px;
+    display: flex;
+    gap: 10px;
 }
 
 #filters button {
@@ -208,7 +210,7 @@ span.date {
 }
 
 #filters button[aria-pressed="true"] {
-    background: var(--note-bg-color-light);
+    background: var(--note-bg-color-dark);
     color: var(--accent-color);
     border-color: var(--accent-color);
 }
@@ -225,19 +227,25 @@ body.dark-mode #filters button[aria-pressed="true"] {
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px 15px;
+    font-size: 1em;
+    background: var(--accent-color);
     border: 1px solid var(--accent-color);
-    background-color: var(--accent-color);
+    border-radius: 4px;
     color: white;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 1em;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: var(--note-bg-color-dark);
+    color: var(--accent-color);
 }
 
 button[aria-pressed="true"] {
-    background-color: #fff6e6;
+    background: var(--note-bg-color-dark);
     color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 button.active {
@@ -261,33 +269,35 @@ button.active {
 
 #loading {
     position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(222, 184, 135, 0.9);
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color-dark);
+    color: white;
+    z-index: 9999;
+    font-size: 1.2em;
 }
 
 /* Contenedor de artículos */
 #articles-container {
-    display: block !important;
-    /* Override inline style */
-    margin-top: 60px; /* Para evitar superposición con #filters */
+    margin-top: 60px;
+    padding: 20px;
 }
 
 .note {
     max-width: 800px;
-    margin: 20px auto; /* Aumentado el espaciado vertical */
-    font-family: 'Gupter', serif;
-    font-size: 1.2em;
-    color: #4a4a4a;
-    background-color: var(--note-bg-color-light);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 0 auto 30px auto; /* Aumentado espaciado vertical */
     padding: 15px;
-    border-radius: 5px;
+    background-color: var(--note-bg-color-dark);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
     position: relative;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .note:hover {
@@ -331,33 +341,13 @@ button.active {
 
 /* Customization Panel */
 .customization-panel {
-    position: fixed;
+    composes: panel;
     bottom: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ddd;
     border-radius: 5px 0 0 0;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.customization-panel button {
-    display: block;
-    margin: 5px 0;
-    padding: 10px 15px; /* Aumentado padding para mejor visibilidad */
-    font-size: 1em;
-    background: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 4px;
-    color: white; /* Texto legible */
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.customization-panel button:hover {
-    background: #fff6e6;
-    color: var(--accent-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 /* Botones de filtros */
@@ -390,9 +380,15 @@ button.active {
 }
 
 #filters button[aria-pressed="true"] {
-    background: var(--note-bg-color-light);
+    background: var(--note-bg-color-dark);
     color: var(--accent-color);
     border-color: var(--accent-color);
+}
+
+.note-date {
+    text-align: right;
+    font-size: 0.9em;
+    margin-top: auto; /* Empuja hacia abajo */
 }
 
 /* Modo oscuro */
@@ -431,6 +427,12 @@ body {
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+}
+
+.panel {
+    background: var(--bg-color-dark);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 /* Modo oscuro */
