@@ -30,105 +30,55 @@ function applyTagFilter(tag, btn) {
 async function loadArticles() {
     let articles = ['notas3/2025-01-03-1932.html', 'notas3/2025-01-03-1928.html', 'notas3/2025-01-03-1900.html', 'notas3/2025-01-03-1857.html', 'notas3/2025-01-03-1855.html', 'notas3/2025-01-03-1807.html', 'notas3/2025-01-03-1758.html', 'notas3/2025-01-03-1749.html', 'notas3/2025-01-03-1737.html', 'notas3/2025-01-03-1731.html', 'notas3/2025-01-03-1728.html', 'notas3/2025-01-03-1656.html', 'notas3/2025-01-03-1654.html', 'notas3/2025-01-03-1634.html', 'notas3/2025-01-03-1625.html', 'notas3/2025-01-03-1621.html', 'notas3/2025-01-03-1618.html', 'notas3/2025-01-02-1556.html', 'notas3/2025-01-02-0737.html', 'notas3/2025-01-01-1725.html', 'notas3/2025-01-01-0603.html', 'notas3/2024-12-29-1752.html', 'notas3/2024-12-28-1246.html', 'notas3/2024-12-28-1245.html', 'notas3/2024-12-27-1407.html', 'notas3/2024-12-23-1534.html', 'notas3/2024-12-23-0344.html', 'notas3/2024-12-20-1623.html', 'notas3/2024-12-18-1145.html', 'notas3/2024-12-18-1057.html', 'notas3/2024-12-18-1025.html', 'notas3/2024-12-18-1022.html', 'notas3/2024-12-18-1012.html', 'notas3/2024-12-18-0941.html', 'notas3/2024-12-16-1202.html', 'notas3/2024-12-15-1045.html', 'notas3/2024-12-10-1723.html', 'notas3/2024-12-10-0912.html', 'notas3/2024-12-07-1719.html', 'notas3/2024-12-07-0946.html', 'notas3/2024-12-06-0943.html', 'notas3/2024-12-05-0944.html', 'notas3/2024-12-05-0944.html', 'notas3/2024-12-04-0946.html', 'notas3/2024-12-04-0944.html', 'notas3/2024-12-03-1942.html', 'notas3/2024-12-03-0947.html', 'notas3/2024-12-03-0946.html', 'notas3/2024-12-02-1942.html', 'notas3/2024-12-01-1941.html', 'notas3/2024-11-30-1941.html', 'notas3/2024-11-30-1941.html', 'notas3/2024-11-29-1945.html', 'notas3/2024-11-29-1945.html', 'notas3/2024-11-29-1944.html', 'notas3/2024-11-29-1941.html', 'notas3/2024-11-29-1937.html', 'notas3/2024-11-29-1937.html', 'notas3/2024-11-29-0943.html', 'notas3/2024-11-28-1947.html', 'notas3/2024-11-28-1947.html', 'notas3/2024-11-28-1945.html', 'notas3/2024-11-26-1948.html', 'notas3/2024-11-24-1948.html', 'notas3/2024-11-23-2002.html', 'notas3/2024-11-23-2002.html', 'notas3/2024-11-23-1951.html', 'notas3/2024-11-20-2003.html', 'notas3/2024-11-20-2003.html', 'notas3/2024-11-18-2003.html', 'notas3/2024-11-17-2009.html', 'notas3/2024-11-17-2008.html', 'notas3/2024-11-17-2008.html', 'notas3/2024-11-17-2007.html', 'notas3/2024-11-17-2006.html', 'notas3/2024-11-17-2006.html', 'notas3/2024-11-17-2003.html', 'notas3/2024-11-15-2009.html', 'notas3/2024-11-14-2010.html', 'notas3/2024-11-12-2017.html', 'notas3/2024-11-12-2017.html', 'notas3/2024-11-12-2015.html', 'notas3/2024-11-12-2014.html', 'notas3/2024-11-11-2019.html', 'notas3/2024-11-10-2021.html', 'notas3/2024-11-10-2021.html', 'notas3/2024-11-10-2020.html', 'notas3/2024-11-10-2020.html', 'notas3/2024-11-10-2019.html', 'notas3/2024-11-10-2019.html', 'notas3/2024-11-09-2026.html', 'notas3/2024-11-09-2023.html', 'notas3/2024-11-09-2023.html', 'notas3/2024-11-06-2027.html', 'notas3/2024-11-05-2027.html', 'notas3/2024-11-05-2027.html', 'notas3/2024-11-03-2031.html', 'notas3/2024-11-03-2029.html', 'notas3/2024-11-03-2028.html', 'notas3/2024-11-03-2028.html', 'notas3/2024-11-03-1135.html', 'notas3/2024-11-02-2038.html', 'notas3/2024-11-02-2036.html', 'notas3/2024-11-02-2036.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-11-02-2031.html', 'notas3/2024-10-31-2038.html', 'notas3/2024-10-31-2038.html', 'notas3/2024-10-31-2038.html', 'notas3/2024-10-31-2038.html', 'notas3/2024-10-30-2039.html', 'notas3/2024-10-30-2039.html', 'notas3/2024-10-29-2040.html', 'notas3/2024-10-24-2058.html', 'notas3/2024-10-24-2058.html', 'notas3/2024-10-19-2100.html', 'notas3/2024-10-19-2059.html', 'notas3/2024-10-19-2059.html', 'notas3/2024-10-19-2059.html', 'notas3/2024-10-11-2101.html', 'notas3/2024-10-11-2020.html', 'notas3/2024-10-09-2020.html', 'notas3/2024-10-08-2022.html', 'notas3/2024-10-06-2101.html', 'notas3/2024-10-04-2041.html', 'notas3/2024-10-02-2103.html', 'notas3/2024-10-02-2102.html', 'notas3/2024-10-02-2102.html', 'notas3/2024-10-02-2102.html', 'notas3/2024-09-28-2104.html', 'notas3/2024-09-28-2104.html', 'notas3/2024-09-27-2104.html', 'notas3/2024-09-25-2105.html', 'notas3/2024-09-25-2104.html', 'notas3/2024-09-24-2105.html', 'notas3/2024-09-23-2105.html', 'notas3/2024-09-22-2107.html', 'notas3/2024-09-22-2107.html', 'notas3/2024-09-21-1326.html', 'notas3/2024-09-21-1225.html', 'notas3/2024-09-21-1224.html', 'notas3/2024-09-21-1219.html', 'notas3/2024-09-21-1209.html', 'notas3/2024-09-21-1206.html', 'notas3/2024-09-16-2222.html', 'notas3/2024-09-16-2043.html', 'notas3/2024-09-16-2032.html', 'notas3/2024-09-16-1228.html', 'notas3/2024-09-15-2018.html', 'notas3/2024-09-15-1758.html', 'notas3/2024-09-15-1749.html', 'notas3/2024-09-15-1723.html', 'notas3/2024-09-15-1251.html', 'notas3/2024-09-15-1248.html', 'notas3/2024-09-15-1243.html', 'notas3/2024-09-15-1242.html', 'notas3/2024-09-15-1242.html', 'notas3/2024-09-15-1233.html', 'notas3/2024-09-14-1803.html', 'notas3/2024-09-14-0120.html', 'notas3/2024-09-14-0119.html', 'notas3/2024-09-13-0708.html', 'notas3/2024-09-12-2024.html', 'notas3/2024-09-08-1806.html', 'notas3/2024-09-08-1330.html', 'notas3/2024-09-08-1318.html', 'notas3/2024-09-08-0500.html', 'notas3/2024-09-08-0440.html', 'notas3/2024-09-08-0258.html', 'notas3/2024-09-04-2004.html', 'notas3/2024-09-04-1949.html', 'notas3/2024-09-02-1508.html', 'notas3/2024-09-02-1405.html', 'notas3/2024-08-31-1947.html', 'notas3/2024-08-29-2203.html', 'notas3/2024-08-28-0950.html', 'notas3/2024-08-23-1413.html', 'notas3/2024-08-23-1337.html', 'notas3/2024-08-23-1321.html', 'notas3/2024-08-23-1221.html', 'notas3/2024-08-23-1215.html', 'notas3/2024-08-23-1209.html', 'notas3/2024-08-23-1205.html', 'notas3/2024-08-23-1159.html', 'notas3/2024-08-23-1156.html', 'notas3/2024-08-23-1148.html', 'notas3/2024-08-23-1143.html', 'notas3/2024-08-23-1138.html', 'notas3/2024-08-23-1125.html', 'notas3/2024-08-23-1121.html', 'notas3/2024-08-23-1120.html', 'notas3/2024-08-23-1119.html', 'notas3/2024-08-23-1112.html', 'notas3/2024-08-23-1111.html', 'notas3/2024-08-23-1104.html', 'notas3/2024-08-23-1052.html', 'notas3/2024-08-23-1038.html', 'notas3/2024-08-23-1036.html', 'notas3/2024-08-23-1035.html', 'notas3/2024-08-23-1022.html', 'notas3/2024-08-23-1006.html', 'notas3/2024-08-23-1005.html', 'notas3/2024-08-23-1001.html', 'notas3/2024-08-23-0953.html', 'notas3/2024-08-23-0948.html', 'notas3/2024-08-23-0945.html', 'notas3/2024-08-23-0945.html', 'notas3/2024-08-23-0943.html', 'notas3/2024-08-23-0942.html', 'notas3/2024-08-23-0939.html', 'notas3/2024-08-22-1623.html', 'notas3/2024-08-22-0946.html', 'notas3/2024-08-22-0943.html', 'notas3/2024-08-21-2014.html', 'notas3/2024-08-18-2234.html', 'notas3/2024-08-18-1106.html', 'notas3/2024-08-17-2004.html', 'notas3/2024-08-17-2002.html', 'notas3/2024-08-17-0843.html', 'notas3/2024-08-17-0838.html', 'notas3/2024-08-17-0820.html', 'notas3/2024-08-17-0544.html', 'notas3/2024-08-17-0450.html', 'notas3/2024-08-17-0314.html', 'notas3/2024-08-17-0114.html', 'notas3/2024-08-17-0106.html', 'notas3/2024-08-17-0104.html', 'notas3/2024-08-16-1225.html', 'notas3/2024-08-16-1225.html', 'notas3/2024-08-11-1800.html', 'notas3/2024-08-09-0315.html', 'notas3/2024-08-07-1026.html', 'notas3/2024-08-04-1651.html', 'notas3/2024-08-02-0304.html', 'notas3/2024-08-01-1409.html'];
 
-    // Array to collect failed articles
+    // Array para coleccionar artículos fallidos
     const failedArticles = [];
 
-    // Sort articles from most recent to oldest
+    // Ordenar artículos de más reciente a más antiguo
     articles.sort((a, b) => {
-        const dateA = new Date(a.split('/')[1].split('-').slice(0, 3).join('-'));
-        const dateB = new Date(b.split('/')[1].split('-').slice(0, 3).join('-'));
+        const dateA = new Date(a.match(/notas3\/(\d{4}-\d{2}-\d{2})/)[1]);
+        const dateB = new Date(b.match(/notas3\/(\d{4}-\d{2}-\d{2})/)[1]);
         return dateB - dateA;
     });
 
+    // Cargar artículos
     const container = document.getElementById('articles-container');
-    const loading = document.getElementById('loading');
-    const tagSet = new Set();
-    let loadedCount = 0;
-    const totalArticles = articles.length;
-
-    loading.innerHTML = `Cargando notas... (0/${totalArticles})`;
-
-    for (const article of articles) {
+    container.innerHTML = '';
+    for (const articlePath of articles) {
         try {
-            // Decode the article path for debugging
-            const decodedArticle = decodeURIComponent(article);
+            const response = await fetch(articlePath);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const content = await response.text();
 
-            const response = await fetch(decodedArticle);
-
-            if (!response.ok) {
-                console.warn(`No se pudo cargar: ${decodedArticle} - Status: ${response.status}`);
-                failedArticles.push(decodedArticle);
-                continue;
+            // Extraer la fecha y hora del nombre del archivo
+            const match = articlePath.match(/notas3\/(\d{4}-\d{2}-\d{2})-(\d{4})\.html/);
+            let date = '';
+            let time = '';
+            if (match) {
+                date = match[1];
+                time = `${match[2].slice(0, 2)}:${match[2].slice(2, 4)}`;
             }
 
-            const articleHTML = await response.text();
-            const div = document.createElement('article');
-
-            // Extract date from filename
-            const filename = decodedArticle.split('/')[1];
-            const dateString = filename.split('-').slice(0, 3).join('-');
-            const formattedDate = new Date(dateString).toLocaleDateString('es-ES');
-
-            // Wrap content in a 'content' div and include the date
-            div.innerHTML = `<div class="content"><span class="date">${formattedDate}</span>${articleHTML}</div>`;
-
-            // Extraer etiquetas (se asume que las etiquetas están en un elemento con clase 'tags')
-            const tagElements = div.querySelectorAll('.tags span');
-            const tags = Array.from(tagElements).map(tag => tag.textContent.trim());
-            tags.forEach(tag => tagSet.add(tag));
-
-            // Asignación de clases según longitud
-            const contentLength = articleHTML.length;
-            div.classList.add('note');
-            if (contentLength <= 1000) {
-                div.classList.add('small');
-            } else if (contentLength <= 5000) {
-                div.classList.add('medium');
-            } else {
-                div.classList.add('large');
-                const toggleButton = document.createElement('button');
-                toggleButton.textContent = 'Leer más';
-                toggleButton.classList.add('toggle-button');
-                toggleButton.onclick = () => {
-                    div.classList.toggle('expanded');
-                    toggleButton.textContent = div.classList.contains('expanded') ? 'Leer menos' : 'Leer más';
-                };
-                div.appendChild(toggleButton);
-            }
-
+            const div = document.createElement('div');
+            div.classList.add('note', 'visible');
+            div.innerHTML = `
+                <span class="date">${date}</span>
+                <span class="time">${time}</span>
+                <div class="content">${content}</div>
+            `;
             container.appendChild(div);
-            loadedCount++;
-
-            // Update counter and make article visible
-            loading.innerHTML = `Cargando notas... (${loadedCount}/${totalArticles})`;
-
-            // Make article visible con animación
-            setTimeout(() => {
-                div.classList.add('visible');
-            }, 10);
-
         } catch (error) {
-            console.error(`Error al cargar el artículo ${decodeURIComponent(article)}:`, error);
-            failedArticles.push(decodeURIComponent(article));
+            console.error(`Error loading ${articlePath}:`, error);
+            failedArticles.push(articlePath);
         }
     }
 
-    if (loadedCount === totalArticles) {
-        loading.innerHTML = `¡Cargadas todas las notas! (${loadedCount}/${totalArticles})`;
-        setTimeout(() => {
-            loading.style.opacity = '0';
-        }, 2000);
-    }
+    // Generar botones de etiquetas
+    const tags = new Set();
+    document.querySelectorAll('.note .tags span').forEach(span => tags.add(span.textContent.trim()));
+    generateTagButtons(tags);
 
-    generateTagButtons(tagSet);
-
-    loading.style.display = 'none';
     container.style.display = 'block';
-
-    // Log failed articles with detailed information
-    if (failedArticles.length > 0) {
-        console.log('Artículos que no se pudieron cargar:', failedArticles);
-    }
+    document.getElementById('loading').style.display = 'none';
 }
 
 loadArticles();
