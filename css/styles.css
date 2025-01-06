@@ -1,7 +1,9 @@
 /* Estilos limpios de notas2 */
 :root {
-    --bg-color: #f8ecd8;
-    --note-bg-color: #fffaf0;
+    --bg-color-light: #f8ecd8;
+    --bg-color-dark: #333;
+    --note-bg-color-light: #fffaf0;
+    --note-bg-color-dark: #444;
     --accent-color: burlywood;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --font-family: 'Georgia', serif;
@@ -11,7 +13,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color-light);
     display: flex;
     flex-direction: column;
     font-family: var(--font-family);
@@ -20,33 +22,50 @@ body {
 }
 
 /* Opción 1: Patrón de círculos pequeños */
-body.pattern-circles {
+body.pattern-circles.light-mode {
     background-color: #f7f3e9;
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
     background-size: 10px 10px;
 }
 
+body.pattern-circles.dark-mode {
+    background-color: #333;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+
 /* Opción 2: Líneas diagonales */
-body.pattern-lines {
+body.pattern-lines.light-mode {
     background-color: #f7f3e9;
     background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
     background-size: 15px 15px;
 }
 
+body.pattern-lines.dark-mode {
+    background-color: #333;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 15px 15px;
+}
+
 /* Opción 3: Puntos en cuadrícula */
-body.pattern-grid {
+body.pattern-grid.light-mode {
     background-color: #f7f3e9;
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0.5px, transparent 0.5px);
     background-size: 20px 20px;
 }
 
-body.dark-mode {
+body.pattern-grid.dark-mode {
     background-color: #333;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+}
+
+body.dark-mode {
     color: #f8ecd8;
 }
 
 body.dark-mode .note {
-    background-color: #444;
+    background-color: var(--note-bg-color-dark);
     color: #f8ecd8;
 }
 
@@ -83,7 +102,7 @@ article {
     max-width: 800px;
     width: 100%;
     padding: 20px 35px;
-    background-color: var(--note-bg-color);
+    background-color: var(--note-bg-color-light);
     margin: 20px 10px;
     border-radius: 1px;
     box-shadow: 0 4px 8px var(--shadow-color);
@@ -209,11 +228,11 @@ button.active {
 /* Customization Panel */
 .customization-panel {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 0px;
+    right: 0px;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 5px 0px 0px 0px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
