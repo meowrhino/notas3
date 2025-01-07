@@ -137,7 +137,7 @@ article {
     width: 100%;
     padding: 20px 35px;
     background-color: var(--note-bg-color-light);
-    margin: 20px 10px;
+    margin: 60px 10px;
     border-radius: 1px;
     box-shadow: 0 4px 8px var(--shadow-color);
     position: relative;
@@ -181,7 +181,7 @@ span.date {
     position: fixed;
     top: 0px;
     right: 0px;
-    background-color: rgba(255, 250, 240, 0.9);
+    background-color: rgba(80, 80, 80, 0.8);
     padding: 10px;
     border-radius: 0px 0px 0px 5px;
     box-shadow: 0 2px 5px var(--shadow-color);
