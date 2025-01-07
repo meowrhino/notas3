@@ -50,33 +50,37 @@ async function loadArticles() {
 
     for (const article of articles) {
         try {
-            // Decode the article path for debugging
             const decodedArticle = decodeURIComponent(article);
-
             const response = await fetch(decodedArticle);
-
+    
             if (!response.ok) {
                 console.warn(`No se pudo cargar: ${decodedArticle} - Status: ${response.status}`);
                 failedArticles.push(decodedArticle);
                 continue;
             }
-
+    
             const articleHTML = await response.text();
             const div = document.createElement('article');
-
-            // Extract date from filename
+    
+            // Extract date and time from filename
             const filename = decodedArticle.split('/')[1];
-            const dateString = filename.split('-').slice(0, 3).join('-');
-            const formattedDate = new Date(dateString).toLocaleDateString('es-ES');
-
-            // Wrap content in a 'content' div and include the date
-            div.innerHTML = `<div class="content"><span class="date">${formattedDate}</span>${articleHTML}</div>`;
-
+            const [year, month, day, time] = filename.split('-');
+            const formattedDate = new Date(`${year}-${month}-${day}`).toLocaleDateString('es-ES');
+            const formattedTime = `${time.slice(0, 2)}:${time.slice(2, 4)}`; // Convert time to HH:mm format
+    
+            // Wrap content in a 'content' div and include the date and time
+            div.innerHTML = `
+                <div class="content">
+                    <span class="date">${formattedDate} ${formattedTime}</span>
+                    ${articleHTML}
+                </div>
+            `;
+    
             // Extraer etiquetas (se asume que las etiquetas están en un elemento con clase 'tags')
             const tagElements = div.querySelectorAll('.tags span');
             const tags = Array.from(tagElements).map(tag => tag.textContent.trim());
             tags.forEach(tag => tagSet.add(tag));
-
+    
             // Asignación de clases según longitud
             const contentLength = articleHTML.length;
             div.classList.add('note');
@@ -95,23 +99,24 @@ async function loadArticles() {
                 };
                 div.appendChild(toggleButton);
             }
-
+    
             container.appendChild(div);
             loadedCount++;
-
+    
             // Update counter and make article visible
             loading.innerHTML = `Cargando notas... (${loadedCount}/${totalArticles})`;
-
+    
             // Make article visible con animación
             setTimeout(() => {
                 div.classList.add('visible');
             }, 10);
-
+    
         } catch (error) {
             console.error(`Error al cargar el artículo ${decodeURIComponent(article)}:`, error);
             failedArticles.push(decodeURIComponent(article));
         }
     }
+    
 
     if (loadedCount === totalArticles) {
         loading.innerHTML = `¡Cargadas todas las notas! (${loadedCount}/${totalArticles})`;
