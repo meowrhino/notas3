@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveNoteAsText(noteContent);
         });
     });
-}
+};
 
 function toggleExpand(note) {
     note.classList.toggle('expanded');
