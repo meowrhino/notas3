@@ -268,7 +268,6 @@ button.active {
     bottom: 0px;
     right: 0px;
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ddd;
     border-radius: 5px 0px 0px 0px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

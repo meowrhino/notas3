@@ -14,14 +14,17 @@ function toggleDarkMode() {
 
     // Cambiar estilos del panel de personalización en modo oscuro
     const panel = document.querySelector('.customization-panel');
+    const filters = document.querySelector('#filters');
     if (isDarkMode) {
-        panel.style.background = "rgba(0, 0, 0, 0.8)";
+        panel.style.background = "rgba(80, 80, 80, 0.8)";
         panel.style.color = "#fff";
-        panel.style.borderColor = "#444";
+        filters.style.background = "rgba(80, 80, 80, 0.8)";
+        filters.style.color = "#fff";
     } else {
         panel.style.background = "rgba(255, 255, 255, 0.9)";
         panel.style.color = "#000";
-        panel.style.borderColor = "#ddd";
+        filters.style.background = "rgba(255, 255, 255, 0.9)";
+        filters.style.color = "#000";
     }
 }
 
