@@ -14,19 +14,24 @@
     <div id="loading">Cargando notas...</div>
 
     <div id="filters">
-        <button data-filter="small" aria-pressed="true">Notas</button>
-        <button data-filter="medium" aria-pressed="false">Historietas</button>
-        <button data-filter="large" aria-pressed="false">Historias</button>
+        <!-- Todos activados por defecto 
+        <button data-filter="all" aria-pressed="true">Todas</button>-->
+        <button data-filter="small" aria-pressed="true">notas</button>
+        <button data-filter="medium" aria-pressed="true">historietas</button>
+        <button data-filter="large" aria-pressed="true">historias</button>
     </div>
+
+    <!-- Contenedor de filtros de etiquetas -->
+    <div id="tag-filters"></div>
 
     <div id="articles-container" style="display: none;"></div>
 
     <!-- Panel de personalización -->
     <div class="customization-panel">
-        <button onclick="changePattern('pattern-circles')">Círculos</button>
-        <button onclick="changePattern('pattern-lines')">Líneas Diagonales</button>
-        <button onclick="changePattern('pattern-grid')">Cuadrícula</button>
-        <button onclick="toggleDarkMode()">Modo Oscuro/Claro</button>
+        <button onclick="changePattern('pattern-circles')">círculos</button>
+        <button onclick="changePattern('pattern-lines')">diagonales</button>
+        <button onclick="changePattern('pattern-grid')">cuadritos</button>
+        <button onclick="toggleDarkMode()">oscuro/claro</button>
     </div>
 
     <div class="notes-container">

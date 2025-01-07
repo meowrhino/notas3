@@ -7,9 +7,10 @@ function changePattern(patternClass) {
 // Alternar modo oscuro/claro
 function toggleDarkMode() {
     const isDarkMode = document.body.classList.toggle('dark-mode');
-    const patterns = ['pattern-circles', 'pattern-lines', 'pattern-grid'];
-    let currentPattern = patterns.find(pattern => document.body.classList.contains(pattern)) || 'pattern-circles';
-    document.body.className = `${currentPattern} ${isDarkMode ? 'dark-mode' : 'light-mode'}`;
+    const patternClass = document.body.classList.contains('pattern-circles') ? 'pattern-circles' :
+                         document.body.classList.contains('pattern-lines') ? 'pattern-lines' :
+                         'pattern-grid';
+    document.body.className = `${patternClass} ${isDarkMode ? 'dark-mode' : 'light-mode'}`;
 
     // Cambiar estilos del panel de personalización en modo oscuro
     const panel = document.querySelector('.customization-panel');
@@ -44,28 +45,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-function assignRandomColors() {
-    const notes = document.querySelectorAll('.note');
-    notes.forEach(note => {
-        const randomColor = `hsl(${Math.random() * 360}, 50%, 75%)`;
-        note.style.backgroundColor = randomColor;
-    });
-}
-
-
-function updateLoadingProgress(loaded, total) {
-    const loadingDiv = document.getElementById('loading');
-    loadingDiv.textContent = `Cargando notas... ${loaded}/${total}`;
-    if (loaded === total) {
-        loadingDiv.style.display = 'none';
-        document.getElementById('articles-container').style.display = 'block';
-    }
-}
-
-function applyTagFilter(tag, button) {
-    const notes = document.querySelectorAll(`.note[data-tag="${tag}"]`);
-    const isActive = button.getAttribute('aria-pressed') === 'true';
-    notes.forEach(note => note.style.display = isActive ? 'none' : 'block');
-    button.setAttribute('aria-pressed', !isActive);
-}
