@@ -26,6 +26,10 @@ function toggleDarkMode() {
         filters.style.background = "rgba(255, 255, 255, 0.9)";
         filters.style.color = "#000";
     }
+
+    // Cambiar icono del botón
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.textContent = isDarkMode ? '⚫' : '⚪';
 }
 
 // Añadir evento para guardar notas editadas
