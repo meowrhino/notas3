@@ -148,17 +148,14 @@ async function loadArticles() {
         console.log('Artículos que no se pudieron cargar:', failedArticles);
     }
 
-    // Create button to toggle visibility of duplicated notes
-    const toggleDuplicatesButton = document.createElement('button');
-    toggleDuplicatesButton.textContent = '2️⃣ Mostrar/Ocultar duplicadas';
-    toggleDuplicatesButton.classList.add('toggle-duplicates');
-    toggleDuplicatesButton.onclick = () => {
+    // Add event listener for the existing toggle button
+    const toggleDuplicatesButton = document.getElementById('toggleDuplicatedButton');
+    toggleDuplicatesButton.addEventListener('click', () => {
         const duplicatedNotes = document.querySelectorAll('.note.duplicated');
         duplicatedNotes.forEach(note => {
             note.style.display = note.style.display === 'none' ? 'block' : 'none';
         });
-    };
-    document.querySelector('.customization-panel').appendChild(toggleDuplicatesButton);
+    });
 }
 
 loadArticles();
