@@ -92,7 +92,7 @@ body.pattern-grid.dark-mode {
 }
 
 body.pattern-grid.light-mode {
-    background-color: var(--bg-color-light);
+    background-color: var(--bg-color-light); 
     background-image: repeating-linear-gradient(
             0deg,
             rgba(0, 0, 0, 0.1) 0,
@@ -243,7 +243,7 @@ button:hover {
 }
 
 button[aria-pressed="true"] {
-    background: var(--note-bg-color-dark);
+    background: var (--note-bg-color-dark);
     color: var(--accent-color);
     border-color: var(--accent-color);
 }
@@ -280,6 +280,17 @@ button.active {
     color: white;
     z-index: 9999;
     font-size: 1.2em;
+}
+
+.loading-content {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.loading-content .progress {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--accent-color);
 }
 
 /* Contenedor de artículos */
@@ -452,4 +463,85 @@ body.dark-mode .customization-panel button {
 body.dark-mode #filters button:hover,
 body.dark-mode .customization-panel button:hover {
     background: #666;
+}
+
+/* Container layout */
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Note styles */
+.note {
+    position: relative;
+    background-color: var(--note-bg-color-dark);
+    color: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    width: 100%;
+    max-width: 800px;
+}
+
+.note .content {
+    margin-bottom: 16px;
+}
+
+/* Timestamp positioning */
+.note .timestamp {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Filter buttons */
+#filters button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+}
+
+#filters button[aria-pressed="true"] {
+    opacity: 1;
+}
+
+#filters button[aria-pressed="false"] {
+    opacity: 0.5;
+}
+
+/* Loading screen */
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--bg-color-dark);
+    color: white;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Loading states */
+body.loaded #loading {
+    display: none;
+}
+
+body.loaded #articles-container {
+    display: block;
 }
