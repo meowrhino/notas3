@@ -32,6 +32,7 @@ async function loadArticles() {
 
     // Array to collect failed articles
     const failedArticles = [];
+    const loadedArticles = new Set(); // Set to track already loaded articles
 
     // Sort articles from most recent to oldest
     articles.sort((a, b) => {
@@ -51,6 +52,13 @@ async function loadArticles() {
     for (const article of articles) {
         try {
             const decodedArticle = decodeURIComponent(article);
+            
+            // Check if the article is already loaded
+            const isDuplicate = loadedArticles.has(decodedArticle);
+            if (!isDuplicate) {
+                loadedArticles.add(decodedArticle); // Mark article as loaded
+            }
+
             const response = await fetch(decodedArticle);
     
             if (!response.ok) {
@@ -99,6 +107,11 @@ async function loadArticles() {
                 };
                 div.appendChild(toggleButton);
             }
+
+            // If this is a duplicate, mark it with a "duplicated" class
+            if (isDuplicate) {
+                div.classList.add('duplicated');
+            }
     
             container.appendChild(div);
             loadedCount++;
@@ -134,6 +147,18 @@ async function loadArticles() {
     if (failedArticles.length > 0) {
         console.log('Artículos que no se pudieron cargar:', failedArticles);
     }
+
+    // Create button to toggle visibility of duplicated notes
+    const toggleDuplicatesButton = document.createElement('button');
+    toggleDuplicatesButton.textContent = '2️⃣ Mostrar/Ocultar duplicadas';
+    toggleDuplicatesButton.classList.add('toggle-duplicates');
+    toggleDuplicatesButton.onclick = () => {
+        const duplicatedNotes = document.querySelectorAll('.note.duplicated');
+        duplicatedNotes.forEach(note => {
+            note.style.display = note.style.display === 'none' ? 'block' : 'none';
+        });
+    };
+    document.querySelector('.customization-panel').appendChild(toggleDuplicatesButton);
 }
 
 loadArticles();
